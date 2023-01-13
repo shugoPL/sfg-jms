@@ -1,7 +1,7 @@
 package guru.springframework.sfgjms.senders;
 
 import guru.springframework.sfgjms.config.JmsConfig;
-import guru.springframework.sfgjms.model.HelloWorld;
+import guru.springframework.sfgjms.model.HelloWorldMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -20,7 +20,7 @@ public class HelloSender {
     @Scheduled(fixedRate = 2000)
     public void sendMessage() {
         System.out.println("I'm sending a message!");
-        HelloWorld helloWorldMessage = HelloWorld
+        HelloWorldMessage helloWorldMessage = HelloWorldMessage
                 .builder()
                 .id(UUID.randomUUID())
                 .message("Hello World")
