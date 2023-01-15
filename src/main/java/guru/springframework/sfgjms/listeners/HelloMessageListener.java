@@ -1,6 +1,7 @@
 package guru.springframework.sfgjms.listeners;
 
 import guru.springframework.sfgjms.config.JmsConfig;
+import guru.springframework.sfgjms.model.ExtHelloMessage;
 import guru.springframework.sfgjms.model.HelloWorldMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.annotation.JmsListener;
@@ -23,21 +24,22 @@ public class HelloMessageListener {
 
     @JmsListener(destination = JmsConfig.MY_QUEUE)
     public void listen(@Payload HelloWorldMessage helloWorldMsg, @Headers MessageHeaders headers, Message msg) {
-//        System.out.println("I Got Message!");
-//        System.out.println(helloWorldMsg);
+        System.out.println("I Got Message!");
+        System.out.println(helloWorldMsg);
     }
 
+    //    public void listenForHello(@Payload ExtHelloMessage helloWorldMsg, @Headers MessageHeaders headers, Message msg)
+
     @JmsListener(destination = JmsConfig.MY_SEND_RCV_QUEUE)
-    public void listenForHello(@Payload HelloWorldMessage helloWorldMsg, @Headers MessageHeaders headers, Message msg)
+    public void listenForHello(Message message)
             throws JMSException {
 
-        HelloWorldMessage payloadMsg = HelloWorldMessage
+        ExtHelloMessage payloadMsg = ExtHelloMessage
                 .builder()
                 .id(UUID.randomUUID())
                 .message("World")
                 .build();
-
-        jmsTemplate.convertAndSend(msg.getJMSReplyTo(), payloadMsg);
+        jmsTemplate.convertAndSend(message.getJMSReplyTo(), payloadMsg);
     }
 
 }

@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Data
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HelloWorldMessage implements Serializable {
-    private static final long serialVersionUID = 1234567L;
-
-//    private UUID id;
-    protected String message;
+public class ExtHelloMessage implements Serializable {
+    private UUID id;
+    private String message;
 }
+
